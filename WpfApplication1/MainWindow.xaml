@@ -1,0 +1,173 @@
+﻿<Window x:Class="WpfApplication1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="381" Width="635"
+        Closed="Closed_Window">
+    <Grid Background="#FF2C1D1D">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="101*"/>
+            <RowDefinition Height="218*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="388*"/>
+                <ColumnDefinition Width="129*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Name="GridTest" Grid.Column="0">
+                <TextBlock Foreground="White" Margin="351,12,38,72" FontSize="20" FontWeight="Bold"><Run Text="작업"/><LineBreak/><Run/></TextBlock>
+                <Ellipse x:Name="WorkingMark" Margin="402,13,39,71" Fill="Red"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="33*"/>
+                    <RowDefinition Height="33*"/>
+                    <RowDefinition Height="33*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Button x:Name="StartBTN" Background="#FF6171BB" Margin="5"
+                            Content="스타트" Foreground="White" FontWeight="Bold" Click="Btn_Start">
+
+                    </Button>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="51*"/>
+                        <ColumnDefinition Width="68*"/>
+                        <ColumnDefinition Width="37*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="PauseBTN" Background="#FF6171BB" Margin="5"
+                            Content="일지 정지" Foreground="White" FontWeight="Bold" Click="Btn_Pause" Grid.ColumnSpan="3">
+
+                    </Button>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="113*"/>
+                        <ColumnDefinition Width="43*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="EndBTN" Background="#FF6171BB" Margin="5" Content="작업 종료" Foreground="White" FontWeight="Bold" Click="Btn_WorkEnd" Grid.ColumnSpan="2">
+
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="71*"/>
+                <RowDefinition Height="71*"/>
+                <RowDefinition Height="71*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <ProgressBar Name="ProgressBar0" Background="Black" BorderBrush="#FF08DC11" Margin="5,51,5,10"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <ProgressBar Name="ProgressBar1" Background="Black" BorderBrush="#FF08DC11" Margin="5,51,5,10"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <ProgressBar Name="ProgressBar2" Background="Black" BorderBrush="#FF08DC11" Margin="5,51,5,10"/>
+                </Grid>
+                <Grid Grid.Column="3">
+                    <ProgressBar Name="ProgressBar3" Background="Black" BorderBrush="#FF08DC11" Margin="5,51,5,10"/>
+                </Grid>
+                <Grid Grid.Column="4">
+                    <ProgressBar Name="ProgressBar4" Background="Black" BorderBrush="#FF08DC11" Margin="5,51,5,10"/>
+                </Grid>
+                <Grid Grid.Column="5">
+                    <ProgressBar Name="ProgressBar5" Background="Black" BorderBrush="#FF08DC11" Margin="5,51,5,10"/>
+                </Grid>
+                <Grid Grid.Column="6">
+                    <ProgressBar Name="ProgressBar6" Background="Black" BorderBrush="#FF08DC11" Margin="5,51,5,10"/>
+                </Grid>
+                <Grid Grid.Column="7">
+                    <ProgressBar Name="ProgressBar7" Background="Black" BorderBrush="#FF08DC11" Margin="5,51,5,10"/>
+                </Grid>
+                <Grid Grid.Column="8">
+                    <ProgressBar Name="ProgressBar8" Background="Black" BorderBrush="#FF08DC11" Margin="5,51,5,10"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <TextBlock Name="Box0"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Padding="20" Background="RosyBrown" Text="    "
+                               FontSize="10" FontWeight="Bold" TextAlignment="Center" 
+                               Foreground="White" MouseLeftButtonUp="ForceRemoval" Tag="0"  />
+                </Grid>
+                <Grid Grid.Column="1">
+                    <TextBlock Name="Box1"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Padding="20" Background="RosyBrown" Text="    "
+                               FontSize="10" FontWeight="Bold" TextAlignment="Center" 
+                               Foreground="White" MouseLeftButtonUp="ForceRemoval" Tag="1" />
+                </Grid>
+                <Grid Grid.Column="2">
+                    <TextBlock Name="Box2"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Padding="20" Background="RosyBrown" Text="    " 
+                               FontSize="10" FontWeight="Bold" TextAlignment="Center" 
+                               Foreground="White" MouseLeftButtonUp="ForceRemoval" Tag="2" />
+                </Grid>
+                <Grid Grid.Column="3">
+                    <TextBlock Name="Box3"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Padding="20" Background="RosyBrown" Text="    " 
+                               FontSize="10" FontWeight="Bold" TextAlignment="Center" 
+                               Foreground="White" MouseLeftButtonUp="ForceRemoval" Tag="3" />
+                </Grid>
+                <Grid Grid.Column="4">
+                    <TextBlock Name="Box4"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Padding="20" Background="RosyBrown" Text="    " 
+                               FontSize="10" FontWeight="Bold" TextAlignment="Center" 
+                               Foreground="White" MouseLeftButtonUp="ForceRemoval" Tag="4" />
+                </Grid>
+                <Grid Grid.Column="5">
+                    <TextBlock Name="Box5"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Padding="20" Background="RosyBrown" Text="    " 
+                               FontSize="10" FontWeight="Bold" TextAlignment="Center" 
+                               Foreground="White" MouseLeftButtonUp="ForceRemoval" Tag="5" />
+                </Grid>
+                <Grid Grid.Column="6">
+                    <TextBlock Name="Box6"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Padding="20" Background="RosyBrown" Text="    " 
+                               FontSize="10" FontWeight="Bold" TextAlignment="Center" 
+                               Foreground="White" MouseLeftButtonUp="ForceRemoval" Tag="6" />
+                </Grid>
+                <Grid Grid.Column="7">
+                    <TextBlock Name="Box7"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Padding="20" Background="RosyBrown" Text="    " 
+                               FontSize="10" FontWeight="Bold" TextAlignment="Center" 
+                               Foreground="White" MouseLeftButtonUp="ForceRemoval" Tag="7" />
+                </Grid>
+                <Grid Grid.Column="8">
+                    <TextBlock Name="Box8"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Padding="20" Background="RosyBrown" Text="    " 
+                               FontSize="10" FontWeight="Bold" TextAlignment="Center" 
+                               Foreground="White" MouseLeftButtonUp="ForceRemoval" Tag="8" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
