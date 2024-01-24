@@ -1,156 +1,171 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Controls;
-using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows.Threading;
+
 
 namespace WpfApplication1.Utill
 {
     public class WorkThread
     {
-        private Thread thread;
-        private ProgressBar progressBar;
-        private TextBlock box;
-        private WorkThread nextWorkThread;
-        private int speed;
-        
-        public WorkThread(ProgressBar _progressBar, TextBlock _box, 
+        private const int WORKOFF_BRUSH_INDEX = 0;
+        private const int WORKON_BRUSH_INDEX = 1;
+
+        private readonly Thread thread;
+        private readonly ProgressBar progressBar;
+        private readonly TextBlock box;
+        private readonly WorkThread nextWorkThread;
+        private readonly int speed;
+        private readonly SolidColorBrush[] brush;
+
+        private object isWorkDoing;
+
+        public WorkThread(ProgressBar _progressBar, TextBlock _box,
             WorkThread _nextWorkThread, bool _isAutoStart, int _speed)
         {
             progressBar = _progressBar;
             box = _box;
             nextWorkThread = _nextWorkThread;
-            isAutoStart = _isAutoStart;
+            IsAutoStart = _isAutoStart;
             speed = _speed;
 
-            isEnd = false;
-            isWorkDoing = false;
-            isPause = false;
+            IsEnd = false;
+            IsPause = false;
 
-            box.Background = new SolidColorBrush(Colors.RosyBrown);
+            isWorkDoing = new bool();
+            isWorkDoing = false;
             thread = new Thread(Job);
+
+            brush = new SolidColorBrush[2];
+            brush[WORKOFF_BRUSH_INDEX] = new SolidColorBrush(Colors.RosyBrown);
+            brush[WORKON_BRUSH_INDEX] = new SolidColorBrush(Colors.Navy);
+
+            box.Background = brush[WORKOFF_BRUSH_INDEX];
 
             thread.Start();
         }
 
         ~WorkThread()
         {
-            isEnd = true;
+            IsEnd = true;
             thread.Join();
         }
 
         public void WorkStart()
         {
-            isPause = false;
+            IsPause = false;
         }
 
         public void WorkPause()
         {
-            isPause = true;
+            IsPause = true;
         }
 
         public bool TakeWork()
         {
-            if (isWorkDoing)
-                return false;
+            lock (isWorkDoing)
+            {
+                if ((bool)isWorkDoing)
+                    return false;
 
-            isWorkDoing = true;
-            SetBoxColor(Colors.Navy);
+                isWorkDoing = true;
+            }
+            SetBoxWorkState(true);
 
             return true;
         }
+
         public void ForceStop()
         {
-            lock (this)
+            lock (isWorkDoing)
             {
                 isWorkDoing = false;
             }
-            SetBoxColor(Colors.RosyBrown);
-            progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            SetBoxWorkState(false);
+
+            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
                 progressBar.Value = 0;
             }));
         }
 
-
         private void Job()
         {
- 
-            while (!isEnd)
+            bool _isWorkDoing = false;
+            while (!IsEnd)
             {
-                if (isWorkDoing)
+                lock (isWorkDoing)
                 {
-                    if (isPause)
+                    _isWorkDoing = (bool)isWorkDoing;
+                }
+
+                if (_isWorkDoing)
+                {
+                    if (IsPause)
                         continue;
 
                     Thread.Sleep(100);
-                    progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                     {
                         progressBar.Value += speed;
-                        if (progressBar.Maximum <= progressBar.Value)
+                        if (progressBar.Maximum > progressBar.Value)
+                            return;
+
+                        if (nextWorkThread != null)
                         {
-                            if (nextWorkThread != null)
+                            if (nextWorkThread.TakeWork())
                             {
-                                lock(nextWorkThread)
-                                {
-                                    if (nextWorkThread.TakeWork())
-                                    {
-                                        SetBoxColor(Colors.RosyBrown);
-                                        progressBar.Value = 0;
-                                        lock (this)
-                                        {
-                                            isWorkDoing = false;
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                lock (this)
+                                SetBoxWorkState(false);
+                                progressBar.Value = 0;
+                                lock (isWorkDoing)
                                 {
                                     isWorkDoing = false;
                                 }
-                                SetBoxColor(Colors.RosyBrown);
-                                progressBar.Value = 0;
                             }
                         }
+                        else
+                        {
+                            lock (isWorkDoing)
+                            {
+                                isWorkDoing = false;
+                            }
+                            SetBoxWorkState(false);
+                            progressBar.Value = 0;
+                        }
                     }));
-
                 }
                 else
                 {
-                    if (isAutoStart)
+                    if (IsAutoStart)
                     {
-                        if (isPause)
+                        if (IsPause)
                             continue;
 
                         Thread.Sleep(200);
-                        lock (this)
+                        lock (isWorkDoing)
                         {
                             isWorkDoing = true;
                         }
-                        SetBoxColor(Colors.Navy);
+                        SetBoxWorkState(true);
                     }
                 }
             }
         }
 
-        private void SetBoxColor(Color color)
+        private void SetBoxWorkState(bool _isWorkOn)
         {
-            box.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
+            _ = box.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
             {
-                box.Background = new SolidColorBrush(color);
+                if (_isWorkOn)
+                    box.Background = brush[WORKON_BRUSH_INDEX];
+                else
+                    box.Background = brush[WORKOFF_BRUSH_INDEX];
             }));
         }
 
-        public bool isWorkDoing { get; set; }
-        public bool isEnd { get; set; }
-        public bool isAutoStart { get; set; }
-        private bool isPause { get; set; }
+        public bool IsEnd { get; set; }
+        public bool IsAutoStart { get; set; }
+        private bool IsPause { get; set; }
     }
 }

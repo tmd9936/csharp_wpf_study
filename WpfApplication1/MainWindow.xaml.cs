@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WpfApplication1.Utill;
 
 namespace WpfApplication1
@@ -22,54 +14,69 @@ namespace WpfApplication1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool isInit = false;
         private WorkThreadManager wtm;
+        private readonly SolidColorBrush[] solidColorBrushes;
+
+        private enum WORK_STATE
+        {
+            START,
+            PAUSE,
+            STOP
+        };
+
         public MainWindow()
         {
             InitializeComponent();
 
-            List<ProgressBar> _progressBar = new List<ProgressBar>(9);
-            _progressBar.Add(ProgressBar0);
-            _progressBar.Add(ProgressBar1);
-            _progressBar.Add(ProgressBar2);
-            _progressBar.Add(ProgressBar3);
-            _progressBar.Add(ProgressBar4);
-            _progressBar.Add(ProgressBar5);
-            _progressBar.Add(ProgressBar6);
-            _progressBar.Add(ProgressBar7);
-            _progressBar.Add(ProgressBar8);
+            solidColorBrushes = new SolidColorBrush[3];
+            solidColorBrushes[(int)WORK_STATE.START] = new SolidColorBrush(Colors.Green);
+            solidColorBrushes[(int)WORK_STATE.PAUSE] = new SolidColorBrush(Colors.Yellow);
+            solidColorBrushes[(int)WORK_STATE.STOP] = new SolidColorBrush(Colors.Red);
 
-            List<TextBlock> _boxes = new List<TextBlock>(9);
-            _boxes.Add(Box0);
-            _boxes.Add(Box1);
-            _boxes.Add(Box2);
-            _boxes.Add(Box3);
-            _boxes.Add(Box4);
-            _boxes.Add(Box5);
-            _boxes.Add(Box6);
-            _boxes.Add(Box7);
-            _boxes.Add(Box8);
+            List<ProgressBar> _progressBar = new List<ProgressBar>(9)
+            {
+                ProgressBar0,
+                ProgressBar1,
+                ProgressBar2,
+                ProgressBar3,
+                ProgressBar4,
+                ProgressBar5,
+                ProgressBar6,
+                ProgressBar7,
+                ProgressBar8
+            };
 
-            wtm = new WorkThreadManager(_progressBar, _boxes);
+            List<TextBlock> _boxes = new List<TextBlock>(9)
+            {
+                Box0,
+                Box1,
+                Box2,
+                Box3,
+                Box4,
+                Box5,
+                Box6,
+                Box7,
+                Box8
+            };
 
-            Rectangle rect = new Rectangle();
+            wtm = new WorkThreadManager(ref _progressBar, ref _boxes);
         }
 
         private void Btn_Start(object sender, RoutedEventArgs e)
         {
-            WorkingMark.Fill = new SolidColorBrush(Colors.Green);
+            WorkingMark.Fill = solidColorBrushes[(int)WORK_STATE.START];
             wtm.WorkStart();
         }
 
         private void Btn_Pause(object sender, RoutedEventArgs e)
         {
-            WorkingMark.Fill = new SolidColorBrush(Colors.Yellow);
+            WorkingMark.Fill = solidColorBrushes[(int)WORK_STATE.PAUSE];
             wtm.WorkPuase();
         }
 
         private void Btn_WorkEnd(object sender, RoutedEventArgs e)
         {
-            WorkingMark.Fill = new SolidColorBrush(Colors.Red);
+            WorkingMark.Fill = solidColorBrushes[(int)WORK_STATE.STOP];
             wtm.WorkStop();
         }
 
@@ -82,9 +89,7 @@ namespace WpfApplication1
         private void ForceRemoval(object sender, MouseButtonEventArgs e)
         {
             TextBlock block = sender as TextBlock;
-            
             int index = int.Parse(block.Tag.ToString());
-
             wtm.ForceStop(index);
         }
     }
