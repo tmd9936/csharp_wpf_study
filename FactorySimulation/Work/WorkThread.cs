@@ -112,14 +112,7 @@ namespace FactorySimulation.Work
 
             if (nextWorkThread.TakeWork(product))
             {
-                SetBoxWorkState(false);
-                progressBar.Value = 0;
-                lock (isWorkDoing)
-                {
-                    isWorkDoing = false;
-                }
-
-                product = null;
+                WorkEndInit();
 
                 return true;
             }
@@ -135,7 +128,19 @@ namespace FactorySimulation.Work
             }));
         }
 
+        protected void WorkEndInit()
+        {
+            lock (isWorkDoing)
+            {
+                isWorkDoing = false;
+            }
+            SetBoxWorkState(false);
+            progressBar.Value = 0;
+            product = null;
+        }
+
         protected abstract void Act();
+
 
         private void Job()
         {

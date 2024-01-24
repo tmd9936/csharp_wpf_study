@@ -53,14 +53,17 @@ namespace FactorySimulation.Service
 
             threads = new List<WorkThread>();
             WorkThread curWorkThread;
-            WorkThread nextWorkThread = new AlignWorkThread(
+            WorkThread nextWorkThread = new ClassifyWorkThread(
                 _progressBars[_progressBars.Count - 1], _boxes[_progressBars.Count - 1], null);
             threads.Add(nextWorkThread);
 
-            int cnt = 0;
             for (int i = _progressBars.Count - 2; i >= 0; --i)
             {
-                if (cnt == 0)
+                if (i == 0)
+                {
+                    curWorkThread = new AlignWorkThread(_progressBars[i], _boxes[i], nextWorkThread);
+                }
+                else if (i == 1)
                 {
                     curWorkThread = new BufferWorkThread(_progressBars[i], _boxes[i], nextWorkThread);
                 }
@@ -68,6 +71,7 @@ namespace FactorySimulation.Service
                 {
                     curWorkThread = new ClassifyWorkThread(_progressBars[i], _boxes[i], nextWorkThread);
                 }
+                
                 threads.Add(curWorkThread);
                 nextWorkThread = curWorkThread;
             }

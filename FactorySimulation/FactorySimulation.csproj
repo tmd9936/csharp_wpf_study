@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\Product.cs" />
     <Compile Include="Service\TransferService.cs" />
+    <Compile Include="Utill\LogManager.cs" />
     <Compile Include="Work\AlignWorkThread.cs" />
     <Compile Include="Work\BufferWorkThread.cs" />
     <Compile Include="Work\ClassifyWorkThread.cs" />

@@ -169,6 +169,9 @@
                                Foreground="White" Tag="8" Margin="0,22,10,22" Width="78" />
                 </Grid>
             </Grid>
+            <Grid Grid.Row="2" Margin="0,0,634,52">
+                <TextBox Name="LogTextBox" Background="{x:Null}" Margin="35,14,-148,-23" FontWeight="Bold" FontSize="32" Text="작업 중지" Foreground="White" BorderBrush="{x:Null}"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

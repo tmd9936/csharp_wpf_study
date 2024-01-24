@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FactorySimulation.Service;
+using FactorySimulation.Utill;
+
 
 namespace FactorySimulation
 {
@@ -63,6 +65,7 @@ namespace FactorySimulation
             };
 
             transfer.Initialize(_progressBar, _boxes);
+            LogManager.Instance.Initialize(LogTextBox);
         }
 
         private void Closed_Window(object sender, EventArgs e)

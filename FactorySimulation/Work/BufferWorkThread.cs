@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using FactorySimulation.Model;
+using FactorySimulation.Utill;
+
 
 namespace FactorySimulation.Work
 {
@@ -12,12 +14,19 @@ namespace FactorySimulation.Work
         public BufferWorkThread( ProgressBar _progressBar,  TextBlock _box,  WorkThread _nextWorkThread)
             : base( _progressBar,  _box,  _nextWorkThread)
         {
-            
+            LogInit = false;
         }
 
         protected override void Act()
         {
+            if (!LogInit)
+            {
+                LogManager.Instance.SetLog("제품 옮기는 중...");
+                LogInit = true;
+            }
+
             Thread.Sleep(100);
+
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
                 progressBar.Value += 5;
@@ -30,14 +39,12 @@ namespace FactorySimulation.Work
                 }
                 else
                 {
-                    lock (isWorkDoing)
-                    {
-                        isWorkDoing = false;
-                    }
-                    SetBoxWorkState(false);
-                    progressBar.Value = 0;
+                    LogManager.Instance.SetLog("제품 배출");
+                    WorkEndInit();
                 }
             }));
         }
+
+        private bool LogInit { get; set; }
     }
 }
