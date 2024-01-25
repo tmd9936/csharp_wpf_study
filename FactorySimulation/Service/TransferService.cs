@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows.Threading;
 using FactorySimulation.Work;
 using FactorySimulation.Model;
+using FactorySimulation.Utill;
 
 
 namespace FactorySimulation.Service
@@ -97,6 +98,8 @@ namespace FactorySimulation.Service
             {
                 threads[i].WorkStart();
             }
+
+            LogManager.Instance.SetLog("공정 시작");
         }
 
         public bool WorkPuase()
@@ -111,12 +114,14 @@ namespace FactorySimulation.Service
                 threads[i].WorkPause();
             }
 
+            LogManager.Instance.SetLog("공정 일시 정지");
             return true;
         }
 
         public void WorkStop()
         {
             State = TRANSFER_STATE.STOP;
+            LogManager.Instance.SetLog("공정 정지");
         }
 
         public void ForceInput(int index)
@@ -131,7 +136,12 @@ namespace FactorySimulation.Service
                 return;
 
             Product product = new Product(CurProductNumber++);
-            threads[index].ForceInput(product);
+            
+            if (threads[index].ForceInput(product))
+            {
+                LogManager.Instance.SetLog(index + "번 공정에 물품 투입");
+            }
+
         }
 
         public void ForceRemoval(int index)
@@ -145,7 +155,10 @@ namespace FactorySimulation.Service
             if (threads[index] == null)
                 return;
 
-            threads[index].ForceRemoval();
+            if (threads[index].ForceRemoval())
+            {
+                LogManager.Instance.SetLog(index + "번 공정에 물품 제거");
+            }
         }
 
         public void InputObject()

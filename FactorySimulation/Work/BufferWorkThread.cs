@@ -39,8 +39,8 @@ namespace FactorySimulation.Work
                 }
                 else
                 {
-                    LogManager.Instance.SetLog("제품 배출");
                     WorkEndInit();
+                    LogManager.Instance.SetLog("제품 배출");
                 }
             }));
         }

@@ -13,7 +13,7 @@ namespace FactorySimulation.Utill
     {
         public static LogManager instance;
 
-        private TextBox logTextBox = null;
+        private TextBlock logTextBox = null;
 
         private LogManager()
         {
@@ -32,7 +32,7 @@ namespace FactorySimulation.Utill
             }
         }
 
-        public void Initialize(TextBox textBox)
+        public void Initialize(TextBlock textBox)
         {
             if (IsInit)
                 return;

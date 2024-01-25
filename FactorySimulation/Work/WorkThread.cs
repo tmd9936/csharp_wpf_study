@@ -17,9 +17,7 @@ namespace FactorySimulation.Work
         protected readonly TextBlock box;
         protected readonly WorkThread nextWorkThread;
         protected readonly SolidColorBrush[] brush;
-
         protected object isWorkDoing;
-        protected Product product = null;
 
         protected WorkThread(ProgressBar _progressBar, TextBlock _box, WorkThread _nextWorkThread)
         {
@@ -59,8 +57,11 @@ namespace FactorySimulation.Work
             IsPause = true;
         }
 
-        public void ForceRemoval()
+        public bool ForceRemoval()
         {
+            if (product == null)
+                return false;
+
             product = null;
 
             lock (isWorkDoing)
@@ -73,12 +74,14 @@ namespace FactorySimulation.Work
             {
                 progressBar.Value = 0;
             }));
+
+            return true;
         }
 
-        public void ForceInput(Product _product)
+        public bool ForceInput(Product _product)
         {
             if (product != null || (bool)isWorkDoing || _product == null)
-                return;
+                return false;
 
             product = _product;
 
@@ -87,6 +90,8 @@ namespace FactorySimulation.Work
                 isWorkDoing = true;
             }
             SetBoxWorkState(true);
+
+            return true;
         }
 
         public bool TakeWork(Product _product)
@@ -164,5 +169,6 @@ namespace FactorySimulation.Work
 
         public bool IsEnd { get; set; }
         private bool IsPause { get; set; }
+        protected Product product { get; set; }
     }
 }

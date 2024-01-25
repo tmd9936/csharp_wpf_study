@@ -170,7 +170,7 @@
                 </Grid>
             </Grid>
             <Grid Grid.Row="2" Margin="0,0,634,52">
-                <TextBox Name="LogTextBox" Background="{x:Null}" Margin="35,14,-148,-23" FontWeight="Bold" FontSize="32" Text="작업 중지" Foreground="White" BorderBrush="{x:Null}"/>
+                <TextBlock Name="LogTextBox" Background="{x:Null}" Margin="35,14,-491,-23" FontWeight="Bold" FontSize="32" Text="작업 중지" Foreground="White"/>
             </Grid>
         </Grid>
     </Grid>

@@ -23,6 +23,7 @@ namespace FactorySimulation.Work
                 LogManager.Instance.SetLog("제품 분류 중...");
                 LogInit = true;
             }
+
             Thread.Sleep(100);
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
