@@ -34,11 +34,13 @@ namespace FactorySimulation.Work
                 if (nextWorkThread != null)
                 {
                     PassObjectNextWorkThread();
+                    LogInit = false;
                 }
                 else
                 {
                     WorkEndInit();
                     LogManager.Instance.SetLog("제품 배출");
+                    LogInit = false;
                 }
             }));
         }

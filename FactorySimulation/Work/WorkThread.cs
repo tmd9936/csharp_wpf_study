@@ -168,7 +168,7 @@ namespace FactorySimulation.Work
         }
 
         public bool IsEnd { get; set; }
+        public Product product { get; set; }
         private bool IsPause { get; set; }
-        protected Product product { get; set; }
     }
 }

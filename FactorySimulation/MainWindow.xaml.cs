@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FactorySimulation.Service;
 using FactorySimulation.Utill;
+using FactorySimulation.View;
 
 
 namespace FactorySimulation
@@ -23,6 +24,8 @@ namespace FactorySimulation
         private TransferService transfer = null;
 
         private readonly SolidColorBrush[] solidColorBrushes;
+
+        public ProductWindow productWindow = new ProductWindow();
 
         private enum WORK_STATE
         {
@@ -66,6 +69,11 @@ namespace FactorySimulation
 
             transfer.Initialize(_progressBar, _boxes);
             LogManager.Instance.Initialize(LogTextBox);
+
+            productWindow.Width = ProductResultGrid.Width * 0.9;
+            productWindow.Height = ProductResultGrid.Height * 0.9;
+
+            ProductResultGrid.Children.Add(productWindow);
         }
 
         private void Closed_Window(object sender, EventArgs e)
@@ -113,6 +121,17 @@ namespace FactorySimulation
             TextBlock block = sender as TextBlock;
             int index = int.Parse(block.Tag.ToString());
             transfer.ForceInput(index);
+        }
+
+        public double X { get; set; }
+        public double Y { get; set; }
+
+        private void OpenProductData(object sender, RoutedEventArgs e)
+        {
+            if (productWindow.Visibility == Visibility.Visible)
+                productWindow.Visibility = Visibility.Hidden;
+            else
+                productWindow.Visibility = Visibility.Visible;
         }
     }
 }

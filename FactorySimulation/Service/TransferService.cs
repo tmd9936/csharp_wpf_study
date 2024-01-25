@@ -64,7 +64,7 @@ namespace FactorySimulation.Service
                 {
                     curWorkThread = new AlignWorkThread(_progressBars[i], _boxes[i], nextWorkThread);
                 }
-                else if (i == 1)
+                else if (i == 1 || i == 4)
                 {
                     curWorkThread = new BufferWorkThread(_progressBars[i], _boxes[i], nextWorkThread);
                 }
@@ -87,7 +87,7 @@ namespace FactorySimulation.Service
             for (int i = 0; i < threads.Count; ++i)
             {
                 threads[i].IsEnd = true;
-            }
+            }                                                                                                                                   
         }
 
         public void WorkStart()
@@ -135,6 +135,9 @@ namespace FactorySimulation.Service
             if (threads[index] == null)
                 return;
 
+            if (IsProductInFactoryLine())
+                return;
+
             Product product = new Product(CurProductNumber++);
             
             if (threads[index].ForceInput(product))
@@ -171,6 +174,19 @@ namespace FactorySimulation.Service
 
             Product product = new Product(CurProductNumber++);
             threads[0].ForceInput(product);
+        }
+
+        public bool IsProductInFactoryLine()
+        {
+            for (int i = 0; i < threads.Count; ++i)
+            {
+                if (threads[i].product != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private TRANSFER_STATE State { get; set; }

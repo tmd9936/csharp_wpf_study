@@ -25,7 +25,7 @@ namespace FactorySimulation.Work
                 LogInit = true;
             }
 
-            Thread.Sleep(100);
+            Thread.Sleep(50);
 
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
@@ -36,11 +36,13 @@ namespace FactorySimulation.Work
                 if (nextWorkThread != null)
                 {
                     PassObjectNextWorkThread();
+                    LogInit = false;
                 }
                 else
                 {
                     WorkEndInit();
                     LogManager.Instance.SetLog("제품 배출");
+                    LogInit = false;
                 }
             }));
         }
