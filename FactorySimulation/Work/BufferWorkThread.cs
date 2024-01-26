@@ -3,8 +3,9 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-using FactorySimulation.Model;
+using FactorySimulation.PModel;
 using FactorySimulation.Utill;
+using FactorySimulation.View;
 
 
 namespace FactorySimulation.Work
@@ -25,7 +26,7 @@ namespace FactorySimulation.Work
                 LogInit = true;
             }
 
-            Thread.Sleep(50);
+            Thread.Sleep(5);
 
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {

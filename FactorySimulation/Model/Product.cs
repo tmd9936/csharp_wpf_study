@@ -5,21 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace FactorySimulation.Model
-{
-    public class Product
-    {
-        public int ID { get; set; }
-        public bool IsOK { get; set; }
-
-        public Product(int _id)
-        {
-            ID = _id;
-            IsOK = true;
-        }
-
-    }
-}
 
 namespace FactorySimulation.PModel
 {

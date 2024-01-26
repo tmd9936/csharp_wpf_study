@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Threading;
 using System.Windows.Threading;
 using FactorySimulation.Work;
-using FactorySimulation.Model;
+using FactorySimulation.PModel;
 using FactorySimulation.Utill;
 
 
@@ -24,11 +24,11 @@ namespace FactorySimulation.Service
             STOP
         }
 
-        private static TransferService instence = null;
 
         private int CurProductNumber { get; set; }
         private List<WorkThread> threads = null;
 
+        private static TransferService instence = null;
         public static TransferService Instance
         {
             get
@@ -138,7 +138,7 @@ namespace FactorySimulation.Service
             if (IsProductInFactoryLine())
                 return;
 
-            Product product = new Product(CurProductNumber++);
+            Product product = new Product() {ID= CurProductNumber++, IsOK=true, Name="Product1" };
             
             if (threads[index].ForceInput(product))
             {
@@ -172,7 +172,7 @@ namespace FactorySimulation.Service
             if (threads[0] == null)
                 return;
 
-            Product product = new Product(CurProductNumber++);
+            Product product = new Product() { ID = CurProductNumber++, IsOK = true, Name = "Product1" };
             threads[0].ForceInput(product);
         }
 

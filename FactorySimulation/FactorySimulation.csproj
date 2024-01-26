@@ -116,7 +116,7 @@
     <Compile Include="Model\Product.cs" />
     <Compile Include="Service\TransferService.cs" />
     <Compile Include="Utill\LogManager.cs" />
-    <Compile Include="ViewModels\ProductViewModel.cs" />
+    <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="View\ProductWindow.xaml.cs">
       <DependentUpon>ProductWindow.xaml</DependentUpon>
     </Compile>

@@ -4,17 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FactorySimulation.PModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
-namespace FactorySimulation.ViewModels
+namespace FactorySimulation.ViewModel
 {
     public class ProductViewModel : ObservableObject
     {
-        private IList<Product> _product;
-        public IList<Product> Product
+        private ObservableCollection<Product> _product;
+        public ObservableCollection<Product> Products
         {
             get => _product;
-            set => SetProperty(ref _product, value);
+            set
+            {
+                _product = value;
+                OnPropertyChanged();
+                //SetProperty(ref _product, value);
+            }
         }
 
         private Product _selectedProduct;
@@ -24,9 +33,10 @@ namespace FactorySimulation.ViewModels
             set => SetProperty(ref _selectedProduct, value);
         }
 
+
         public ProductViewModel()
         {
-            Product = new List<Product>
+            Products = new ObservableCollection<Product>
             {
                 new Product{ID = 1000, IsOK = true, Name="Bolt"},
                 new Product{ID = 1001, IsOK = true, Name="Machine"},

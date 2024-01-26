@@ -3,7 +3,7 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-using FactorySimulation.Model;
+using FactorySimulation.PModel;
 
 namespace FactorySimulation.Work
 {

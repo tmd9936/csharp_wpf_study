@@ -3,7 +3,7 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-using FactorySimulation.Model;
+using FactorySimulation.PModel;
 using FactorySimulation.Utill;
 
 namespace FactorySimulation.Work
@@ -18,29 +18,29 @@ namespace FactorySimulation.Work
 
         protected override void Act()
         {
-            LogManager.Instance.SetLog("제품 스캔중...");
-            Thread.Sleep(1000);
-            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                progressBar.Value = 25;
-            }));
+            //LogManager.Instance.SetLog("제품 스캔중...");
+            //Thread.Sleep(1000);
+            //_ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            //{
+            //    progressBar.Value = 25;
+            //}));
 
-            LogManager.Instance.SetLog("틀어짐 확인중...");
-            Thread.Sleep(1000);
-            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                progressBar.Value = 55;
-            }));
+            //LogManager.Instance.SetLog("틀어짐 확인중...");
+            //Thread.Sleep(1000);
+            //_ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            //{
+            //    progressBar.Value = 55;
+            //}));
 
-            LogManager.Instance.SetLog("틸트 조정중...");
-            Thread.Sleep(1000);
-            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                progressBar.Value = 85;
-            }));
+            //LogManager.Instance.SetLog("틸트 조정중...");
+            //Thread.Sleep(1000);
+            //_ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            //{
+            //    progressBar.Value = 85;
+            //}));
 
-            LogManager.Instance.SetLog("어라인 완료");
-            Thread.Sleep(200);
+            //LogManager.Instance.SetLog("어라인 완료");
+            //Thread.Sleep(200);
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
                 progressBar.Value = 100;

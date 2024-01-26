@@ -25,8 +25,6 @@ namespace FactorySimulation
 
         private readonly SolidColorBrush[] solidColorBrushes;
 
-        public ProductWindow productWindow = new ProductWindow();
-
         private enum WORK_STATE
         {
             START,
@@ -70,10 +68,10 @@ namespace FactorySimulation
             transfer.Initialize(_progressBar, _boxes);
             LogManager.Instance.Initialize(LogTextBox);
 
-            productWindow.Width = ProductResultGrid.Width * 0.9;
-            productWindow.Height = ProductResultGrid.Height * 0.9;
+            ProductWindow.Instance.Width = ProductResultGrid.Width * 0.9;
+            ProductWindow.Instance.Height = ProductResultGrid.Height * 0.9;
 
-            ProductResultGrid.Children.Add(productWindow);
+            ProductResultGrid.Children.Add(ProductWindow.Instance);
         }
 
         private void Closed_Window(object sender, EventArgs e)
@@ -128,10 +126,10 @@ namespace FactorySimulation
 
         private void OpenProductData(object sender, RoutedEventArgs e)
         {
-            if (productWindow.Visibility == Visibility.Visible)
-                productWindow.Visibility = Visibility.Hidden;
+            if (ProductWindow.Instance.Visibility == Visibility.Visible)
+                ProductWindow.Instance.Visibility = Visibility.Hidden;
             else
-                productWindow.Visibility = Visibility.Visible;
+                ProductWindow.Instance.Visibility = Visibility.Visible;
         }
     }
 }

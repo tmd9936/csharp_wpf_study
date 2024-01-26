@@ -11,7 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using FactorySimulation.ViewModels;
+using System.ComponentModel;
+using System.Media;
+using FactorySimulation.ViewModel;
+using FactorySimulation.PModel;
 
 namespace FactorySimulation.View
 {
@@ -20,12 +23,27 @@ namespace FactorySimulation.View
     /// </summary>
     public partial class ProductWindow : UserControl
     {
-        public ProductViewModel ProductViewModels { get; set; }
-        public ProductWindow()
+        private static ProductWindow instence = null;
+        public static ProductWindow Instance
+        {
+            get
+            {
+                if (instence == null)
+                {
+                    instence = new ProductWindow();
+                }
+                return instence;
+            }
+        }
+
+        private ProductWindow()
         {
             InitializeComponent();
             ProductViewModels = new ProductViewModel();
-            DataContext = ProductViewModels;
+            ProductDataGrid.DataContext = ProductViewModels;
         }
+
+        public ProductViewModel ProductViewModels { get; set; }
+
     }
 }
