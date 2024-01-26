@@ -26,11 +26,11 @@ namespace FactorySimulation.Work
                 LogInit = true;
             }
 
-            Thread.Sleep(5);
+            Thread.Sleep(6);
 
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                progressBar.Value += 5;
+                progressBar.Value += 1;
                 if (progressBar.Maximum > progressBar.Value)
                     return;
 

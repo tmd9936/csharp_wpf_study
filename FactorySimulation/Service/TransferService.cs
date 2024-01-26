@@ -44,7 +44,7 @@ namespace FactorySimulation.Service
         private TransferService()
         {
             State = TRANSFER_STATE.INIT;
-            CurProductNumber = 1000;
+            CurProductNumber = 1003;
         }
 
         public void Initialize(List<ProgressBar> _progressBars, List<TextBlock> _boxes)
@@ -124,7 +124,7 @@ namespace FactorySimulation.Service
             LogManager.Instance.SetLog("공정 정지");
         }
 
-        public void ForceInput(int index)
+        public void ForceInput(string name, int index)
         {
             if (State != TRANSFER_STATE.PAUSE)
                 return;
@@ -138,7 +138,7 @@ namespace FactorySimulation.Service
             if (IsProductInFactoryLine())
                 return;
 
-            Product product = new Product() {ID= CurProductNumber++, IsOK=true, Name="Product1" };
+            Product product = new Product() {ID= CurProductNumber++, IsOK = true, Name = name };
             
             if (threads[index].ForceInput(product))
             {
@@ -164,7 +164,7 @@ namespace FactorySimulation.Service
             }
         }
 
-        public void InputObject()
+        public void InputObject(string name)
         {
             if (State != TRANSFER_STATE.WORKING)
                 return;
@@ -172,7 +172,7 @@ namespace FactorySimulation.Service
             if (threads[0] == null)
                 return;
 
-            Product product = new Product() { ID = CurProductNumber++, IsOK = true, Name = "Product1" };
+            Product product = new Product() { ID = CurProductNumber++, IsOK = true, Name = name };
             threads[0].ForceInput(product);
         }
 

@@ -21,8 +21,7 @@ namespace FactorySimulation.ViewModel
             set
             {
                 _product = value;
-                OnPropertyChanged();
-                //SetProperty(ref _product, value);
+                SetProperty(ref _product, value);
             }
         }
 
@@ -39,7 +38,7 @@ namespace FactorySimulation.ViewModel
             Products = new ObservableCollection<Product>
             {
                 new Product{ID = 1000, IsOK = true, Name="Bolt"},
-                new Product{ID = 1001, IsOK = true, Name="Machine"},
+                new Product{ID = 1001, IsOK = false, Name="Machine"},
                 new Product{ID = 1002, IsOK = true, Name="Monitor"},
             };
         }

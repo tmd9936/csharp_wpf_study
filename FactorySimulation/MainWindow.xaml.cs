@@ -104,7 +104,7 @@ namespace FactorySimulation
 
         private void InputObject(object sender, MouseButtonEventArgs e)
         {
-            transfer.InputObject();
+            transfer.InputObject(ProductNameTextBox.Text);
         }
 
         private void ForceRemoval(object sender, MouseButtonEventArgs e)
@@ -118,7 +118,7 @@ namespace FactorySimulation
         {
             TextBlock block = sender as TextBlock;
             int index = int.Parse(block.Tag.ToString());
-            transfer.ForceInput(index);
+            transfer.ForceInput(ProductNameTextBox.Text, index);
         }
 
         public double X { get; set; }

@@ -20,8 +20,10 @@
                     <ColumnDefinition Width="99*"/>
                 </Grid.ColumnDefinitions>
                 <Canvas Grid.Column="0" Height="133" Grid.ColumnSpan="2">
-                    <TextBlock Foreground="White" FontSize="30" FontWeight="Bold" Height="49" Canvas.Left="420" Canvas.Top="12"><Run Text="작업"/><LineBreak/><Run/></TextBlock>
-                    <Ellipse x:Name="WorkingMark" Fill="Red" Height="47" Canvas.Left="499" Canvas.Top="10" Width="49"/>
+                    <TextBlock Foreground="White" FontSize="25" FontWeight="Bold" Height="49" Canvas.Left="315" Canvas.Top="14" Text="작업 상태"/>
+                    <Ellipse x:Name="WorkingMark" Fill="Red" Height="47" Canvas.Left="439" Canvas.Top="10" Width="49"/>
+                    <TextBox  x:Name="ProductNameTextBox" Height="30" Canvas.Left="142" TextWrapping="Wrap" Text="TextBox" Canvas.Top="16" Width="138" FontSize="17"/>
+                    <TextBlock Foreground="White" FontSize="25" FontWeight="Bold" Height="49" Canvas.Left="20" Canvas.Top="12" Text="제품 이름"/>
                 </Canvas>
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
