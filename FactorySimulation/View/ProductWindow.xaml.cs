@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using System.ComponentModel;
 using System.Media;
 using FactorySimulation.ViewModel;
@@ -41,9 +42,18 @@ namespace FactorySimulation.View
             InitializeComponent();
             ProductViewModels = new ProductViewModel();
             ProductDataGrid.DataContext = ProductViewModels;
+
         }
 
-        public ProductViewModel ProductViewModels { get; set; }
+        public void AddProductResultInfo(Product _product)
+        {
+            _ = this.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ProductViewModels.Products.Add(_product);
+            }));
+        }
+
+        private ProductViewModel ProductViewModels { get; set; }
 
     }
 }

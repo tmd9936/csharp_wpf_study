@@ -141,21 +141,6 @@ namespace FactorySimulation.Work
             return true;
         }
 
-        //protected bool PassObjectNextWorkThread()
-        //{
-        //    if (nextWorkThread == null || product == null)
-        //        return false;
-
-        //    if (nextWorkThread.TakeWork(product))
-        //    {
-        //        WorkEndInit();
-
-        //        return true;
-        //    }
-
-        //    return false;
-        //}
-
         protected void SetBoxWorkState(bool _isWorkOn)
         {
             _ = box.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
@@ -164,7 +149,7 @@ namespace FactorySimulation.Work
             }));
         }
 
-        public void WorkEndInit()
+        public virtual void WorkEndInit()
         {
             lock (isWorkDoing)
             {

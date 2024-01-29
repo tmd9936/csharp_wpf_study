@@ -137,7 +137,6 @@ namespace FactorySimulation.Service
                         
                     }
                 }
-                
             }
         }
 
@@ -254,6 +253,23 @@ namespace FactorySimulation.Service
             }
 
             return false;
+        }
+
+        public void CycleProduct(int index)
+        {
+            if ((int)State != ((int)TRANSFER_STATE.PAUSE))
+                return;
+
+            if (index < 0 || index >= threads.Count)
+                return;
+
+            if (threads[index] == null)
+                return;
+
+            if (threads[index].product == null)
+                return;
+
+            threads[index].WorkStart();
         }
 
         private object State { get; set; }

@@ -152,5 +152,12 @@ namespace FactorySimulation
         {
             Point point = Mouse.GetPosition(Application.Current.MainWindow);
         }
+
+        private void CycleEvent(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            int index = int.Parse(btn.Tag.ToString());
+            transfer.CycleProduct(index);
+        }
     }
 }

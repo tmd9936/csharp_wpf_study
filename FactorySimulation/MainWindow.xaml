@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FactorySimulation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="488" Width="1254"
+        Title="MainWindow" Height="554" Width="1254"
         Closed="Closed_Window">
     <Canvas Background="#FF2C1D1D" Name="MainCanvas" MouseLeftButtonUp="CanvasMouseEvent">
         <Grid Height="447" Width="774">
@@ -50,6 +50,7 @@
             </Grid>
             <Grid Grid.Row="1" Grid.ColumnSpan="3">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="90*"/>
                     <RowDefinition Height="71*"/>
                     <RowDefinition Height="71*"/>
                     <RowDefinition Height="71*"/>
@@ -107,14 +108,10 @@
                         <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0" Name="TransferGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="7*"/>
-                        </Grid.ColumnDefinitions>
                         <TextBlock  Name="Box0"  VerticalAlignment="Center" HorizontalAlignment="Center"
                                Padding="20" Background="Gray" Text="투입구"
                                FontSize="10" FontWeight="Bold" TextAlignment="Center" 
-                               Foreground="White" Grid.ColumnSpan="2" Margin="10,21,0,21" Width="78" 
+                               Foreground="White" Grid.ColumnSpan="2" Margin="7,10,1,10" Width="78" 
                                     MouseLeftButtonUp="InputObject"  MouseRightButtonUp="ForceRemoval" Tag="0"  />
                     </Grid>
                     <Grid Grid.Column="1">
@@ -128,47 +125,97 @@
                         <TextBlock Name="Box2"  VerticalAlignment="Center" HorizontalAlignment="Center"
                                Padding="20" Background="RosyBrown" Text="    " 
                                FontSize="10" FontWeight="Bold" TextAlignment="Center" 
-                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="2"/>
+                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="2" Margin="0"/>
                     </Grid>
                     <Grid Grid.Column="3">
                         <TextBlock Name="Box3"  VerticalAlignment="Center" HorizontalAlignment="Center"
                                Padding="20" Background="RosyBrown" Text="    " 
                                FontSize="10" FontWeight="Bold" TextAlignment="Center" 
-                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="3" />
+                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="3" Margin="0" />
                     </Grid>
                     <Grid Grid.Column="4">
                         <TextBlock Name="Box4"  VerticalAlignment="Center" HorizontalAlignment="Center"
                                Padding="20" Background="RosyBrown" Text="    " 
                                FontSize="10" FontWeight="Bold" TextAlignment="Center" 
-                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="4" />
+                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="4" Margin="0" />
                     </Grid>
                     <Grid Grid.Column="5">
                         <TextBlock Name="Box5"  VerticalAlignment="Center" HorizontalAlignment="Center"
                                Padding="20" Background="RosyBrown" Text="    " 
                                FontSize="10" FontWeight="Bold" TextAlignment="Center" 
-                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="5" />
+                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="5" Margin="0" />
                     </Grid>
                     <Grid Grid.Column="6">
                         <TextBlock Name="Box6"  VerticalAlignment="Center" HorizontalAlignment="Center"
                                Padding="20" Background="RosyBrown" Text="    " 
                                FontSize="10" FontWeight="Bold" TextAlignment="Center" 
-                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="6" />
+                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="6" Margin="0" />
                     </Grid>
                     <Grid Grid.Column="7">
                         <TextBlock Name="Box7"  VerticalAlignment="Center" HorizontalAlignment="Center"
                                Padding="20" Background="RosyBrown" Text="    " 
                                FontSize="10" FontWeight="Bold" TextAlignment="Center" 
-                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="7" />
+                               Foreground="White" MouseRightButtonUp="ForceRemoval"  MouseLeftButtonUp="ForceInputObject" Tag="7" Margin="0,-1,0,0" />
                     </Grid>
                     <Grid Grid.Column="8">
                         <TextBlock Name="Box8"  VerticalAlignment="Center" HorizontalAlignment="Center"
                                Padding="20" Background="BurlyWood" Text="배출구" 
                                FontSize="10" FontWeight="Bold" TextAlignment="Center" 
-                               Foreground="White" Margin="0,22,10,22" Width="78" Tag="8" />
+                               Foreground="White" Margin="7,10,1,10" Width="78" Tag="8" />
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="2" Margin="0,0,634,52">
-                    <TextBlock Name="LogTextBox" Background="{x:Null}" Margin="35,29,-491,-38" FontWeight="Bold" FontSize="32" Text="작업 중지" Foreground="White"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button Margin="10,0,0,38" Background="#FFFF4545" FontSize="15" FontWeight="Bold" Foreground="White" Content="Cycle" Tag="0" Click="CycleEvent"  Visibility="Hidden">
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button Margin="0" Background="#FFFF4545" FontSize="15" FontWeight="Bold" Foreground="White" Content="Cycle" Tag="1" Click="CycleEvent" >
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button Margin="0" Background="#FFFF4545" FontSize="15" FontWeight="Bold" Foreground="White" Content="Cycle" Tag="2" Click="CycleEvent" >
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Button Margin="0" Background="#FFFF4545" FontSize="15" FontWeight="Bold" Foreground="White" Content="Cycle" Tag="3" Click="CycleEvent" >
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="4">
+                        <Button Margin="0" Background="#FFFF4545" FontSize="15" FontWeight="Bold" Foreground="White" Content="Cycle" Tag="4" Click="CycleEvent" >
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="5">
+                        <Button Margin="0" Background="#FFFF4545" FontSize="15" FontWeight="Bold" Foreground="White" Content="Cycle" Tag="5" Click="CycleEvent" >
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="6">
+                        <Button Margin="0" Background="#FFFF4545" FontSize="15" FontWeight="Bold" Foreground="White" Content="Cycle" Tag="6" Click="CycleEvent" >
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="7">
+                        <Button Margin="0" Background="#FFFF4545" FontSize="15" FontWeight="Bold" Foreground="White" Content="Cycle" Tag="7" Click="CycleEvent" >
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="8">
+                        <Button Margin="0" Background="#FFFF4545" FontSize="15" FontWeight="Bold" Foreground="White" Content="Cycle" Tag="8" Click="CycleEvent" Visibility="Hidden">
+                        </Button>
+                    </Grid>
+                    
+                </Grid>
+                <Grid Grid.Row="3" Margin="0,0,634,52">
+                    <TextBlock Name="LogTextBox" Background="{x:Null}" Margin="35,29,-491,-74" FontWeight="Bold" FontSize="32" Text="작업 중지" Foreground="White"/>
                 </Grid>
             </Grid>
         </Grid>

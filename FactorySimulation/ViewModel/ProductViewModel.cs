@@ -32,7 +32,6 @@ namespace FactorySimulation.ViewModel
             set => SetProperty(ref _selectedProduct, value);
         }
 
-
         public ProductViewModel()
         {
             Products = new ObservableCollection<Product>

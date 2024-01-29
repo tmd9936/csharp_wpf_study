@@ -44,5 +44,15 @@ namespace FactorySimulation.Work
                 }
             }));
         }
+
+        public override void WorkEndInit()
+        {
+            if (product == null)
+                return;
+
+            ProductWindow.Instance.AddProductResultInfo(product);
+
+            base.WorkEndInit();
+        }
     }
 }
