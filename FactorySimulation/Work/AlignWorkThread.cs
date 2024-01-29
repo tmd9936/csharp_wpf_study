@@ -10,54 +10,59 @@ namespace FactorySimulation.Work
 {
     public class AlignWorkThread : WorkThread
     {
-        public AlignWorkThread( ProgressBar _progressBar,  TextBlock _box,  WorkThread _nextWorkThread)
-            : base( _progressBar,  _box,  _nextWorkThread)
+        enum ALIGN_STATE
         {
-            
+            INIT,
+            SCAN,
+            CHECK,
+            MOVE_TILT,
+            COMPLETE
+        }
+
+        public AlignWorkThread(ProgressBar _progressBar, TextBlock _box, Color _workOffColor, Color _workOnColor) 
+            : base(_progressBar, _box, _workOffColor, _workOnColor)
+        {
+            State = ALIGN_STATE.INIT;
         }
 
         protected override void Act()
         {
-            LogManager.Instance.SetLog("제품 스캔중...");
-            Thread.Sleep(1000);
+            Thread.Sleep(15);
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                progressBar.Value = 25;
-            }));
+                if (progressBar.Maximum <= progressBar.Value)
+                    return;
 
-            LogManager.Instance.SetLog("틀어짐 확인중...");
-            Thread.Sleep(1000);
-            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                progressBar.Value = 55;
-            }));
+                progressBar.Value += 1;
 
-            LogManager.Instance.SetLog("틸트 조정중...");
-            Thread.Sleep(1000);
-            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                progressBar.Value = 85;
-            }));
-
-            LogManager.Instance.SetLog("어라인 완료");
-            Thread.Sleep(200);
-            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                progressBar.Value = 100;
-            }));
-            Thread.Sleep(200);
-
-            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                if (nextWorkThread != null)
+                if (progressBar.Value == 1)
                 {
-                    PassObjectNextWorkThread();
+                    LogManager.Instance.SetLog("제품 스캔중...");
                 }
-                else
+
+                if (progressBar.Value == 35)
                 {
-                    WorkEndInit();
+                    LogManager.Instance.SetLog("틀어짐 확인중...");
                 }
+
+                if (progressBar.Value == 70)
+                {
+                    LogManager.Instance.SetLog("틸트 조정중...");
+                }
+
+                if (progressBar.Value == progressBar.Maximum)
+                {
+                    LogManager.Instance.SetLog("어라인 완료");
+
+                    lock (IsComplete)
+                    {
+                        IsComplete = true;
+                    }
+                }
+
             }));
         }
+
+        private ALIGN_STATE State { get; set; }
     }
 }

@@ -8,26 +8,28 @@ using FactorySimulation.Utill;
 using FactorySimulation.View;
 using System.Collections.Generic;
 
-
 namespace FactorySimulation.Work
 {
-    public class ClassifyWorkThread : WorkThread
+    public class InWorkThread : WorkThread
     {
-        public ClassifyWorkThread(ProgressBar _progressBar, TextBlock _box, Color _workOffColor, Color _workOnColor)
-            : base(_progressBar, _box, _workOffColor, _workOnColor)
+        public InWorkThread(ProgressBar _progressBar, TextBlock _box, Color _workOffColor, Color _workOnColor)
+            : base(_progressBar, _box,  _workOffColor, _workOnColor)
         {
-
+            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                progressBar.Visibility = System.Windows.Visibility.Hidden;
+            }));
         }
 
         protected override void Act()
         {
             if (!LogInit)
             {
-                LogManager.Instance.SetLog("제품 분류 중...");
+                LogManager.Instance.SetLog("제품 투입...");
                 LogInit = true;
             }
 
-            Thread.Sleep(12);
+            Thread.Sleep(2);
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
                 if (progressBar.Maximum > progressBar.Value)
@@ -41,5 +43,6 @@ namespace FactorySimulation.Work
                 }
             }));
         }
+
     }
 }

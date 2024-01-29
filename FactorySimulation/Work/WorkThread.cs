@@ -7,34 +7,46 @@ using FactorySimulation.PModel;
 
 namespace FactorySimulation.Work
 {
+    public enum WORK_THREAD_TYPE
+    {
+        IN,
+        OUT,
+        ALIGN,
+        BUFFER,
+        CLASSITY,
+    };
+
     public abstract class WorkThread
     {
         private const int WORKOFF_BRUSH_INDEX = 0;
         private const int WORKON_BRUSH_INDEX = 1;
 
         private readonly Thread thread;
-        protected readonly ProgressBar progressBar;
+        public readonly ProgressBar progressBar;
         protected readonly TextBlock box;
         protected readonly WorkThread nextWorkThread;
-        protected readonly SolidColorBrush[] brush;
+        protected readonly SolidColorBrush[] brush = new SolidColorBrush[2];
         protected object isWorkDoing;
+        protected object IsComplete;
 
-        protected WorkThread(ProgressBar _progressBar, TextBlock _box, WorkThread _nextWorkThread)
+        protected WorkThread(ProgressBar _progressBar, TextBlock _box, Color _workOffColor, Color _workOnColor)
         {
             progressBar = _progressBar;
             box = _box;
-            nextWorkThread = _nextWorkThread;
+            //nextWorkThread = _nextWorkThread;
 
+            LogInit = false;
             IsEnd = false;
             IsPause = false;
+            IsComplete = new bool();
+            IsComplete = false;
 
             isWorkDoing = new bool();
             isWorkDoing = false;
             thread = new Thread(Job);
 
-            brush = new SolidColorBrush[2];
-            brush[WORKOFF_BRUSH_INDEX] = new SolidColorBrush(Colors.RosyBrown);
-            brush[WORKON_BRUSH_INDEX] = new SolidColorBrush(Colors.Navy);
+            brush[WORKOFF_BRUSH_INDEX] = new SolidColorBrush(_workOffColor);
+            brush[WORKON_BRUSH_INDEX] = new SolidColorBrush(_workOnColor);
 
             box.Background = brush[WORKOFF_BRUSH_INDEX];
 
@@ -57,6 +69,22 @@ namespace FactorySimulation.Work
             IsPause = true;
         }
 
+        public bool GetIsCompelte()
+        {
+            lock (IsComplete)
+            {
+                return (bool)IsComplete;
+            }
+        }
+
+        public bool GetIsWorkDoing()
+        {
+            lock (isWorkDoing)
+            {
+                return (bool)isWorkDoing;
+            }
+        }
+
         public bool ForceRemoval()
         {
             if (product == null)
@@ -70,10 +98,10 @@ namespace FactorySimulation.Work
             }
             SetBoxWorkState(false);
 
-            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                progressBar.Value = 0;
-            }));
+            //_ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            //{
+            //    progressBar.Value = 0;
+            //}));
 
             return true;
         }
@@ -96,6 +124,9 @@ namespace FactorySimulation.Work
 
         public bool TakeWork(Product _product)
         {
+            if (product != null || (bool)isWorkDoing || _product == null)
+                return false;
+
             lock (isWorkDoing)
             {
                 if ((bool)isWorkDoing)
@@ -110,20 +141,20 @@ namespace FactorySimulation.Work
             return true;
         }
 
-        protected bool PassObjectNextWorkThread()
-        {
-            if (nextWorkThread == null || product == null)
-                return false;
+        //protected bool PassObjectNextWorkThread()
+        //{
+        //    if (nextWorkThread == null || product == null)
+        //        return false;
 
-            if (nextWorkThread.TakeWork(product))
-            {
-                WorkEndInit();
+        //    if (nextWorkThread.TakeWork(product))
+        //    {
+        //        WorkEndInit();
 
-                return true;
-            }
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         protected void SetBoxWorkState(bool _isWorkOn)
         {
@@ -133,15 +164,23 @@ namespace FactorySimulation.Work
             }));
         }
 
-        protected void WorkEndInit()
+        public void WorkEndInit()
         {
             lock (isWorkDoing)
             {
                 isWorkDoing = false;
             }
+
             SetBoxWorkState(false);
-            progressBar.Value = 0;
+            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                progressBar.Value = 0;
+            }));
             product = null;
+            lock (IsComplete)
+            {
+                IsComplete = false;
+            }
         }
 
         protected abstract void Act();
@@ -169,6 +208,7 @@ namespace FactorySimulation.Work
 
         public bool IsEnd { get; set; }
         public Product product { get; set; }
+        protected bool LogInit { get; set; }
         private bool IsPause { get; set; }
     }
 }

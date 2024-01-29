@@ -11,23 +11,26 @@ using System.Collections.Generic;
 
 namespace FactorySimulation.Work
 {
-    public class ClassifyWorkThread : WorkThread
+    public class OutWorkThread : WorkThread
     {
-        public ClassifyWorkThread(ProgressBar _progressBar, TextBlock _box, Color _workOffColor, Color _workOnColor)
+        public OutWorkThread(ProgressBar _progressBar, TextBlock _box, Color _workOffColor, Color _workOnColor)
             : base(_progressBar, _box, _workOffColor, _workOnColor)
         {
-
+            _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                progressBar.Visibility = System.Windows.Visibility.Hidden;
+            }));
         }
 
         protected override void Act()
         {
             if (!LogInit)
             {
-                LogManager.Instance.SetLog("제품 분류 중...");
+                LogManager.Instance.SetLog("제품 배출...");
                 LogInit = true;
             }
 
-            Thread.Sleep(12);
+            Thread.Sleep(3);
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
                 if (progressBar.Maximum > progressBar.Value)

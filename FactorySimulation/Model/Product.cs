@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows.Shapes;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows;
 
 
 namespace FactorySimulation.PModel
@@ -31,5 +38,15 @@ namespace FactorySimulation.PModel
             set => SetProperty(ref _name, value);
         }
 
+        public Point Position { get; set; }
+        public Rectangle Rect { get; set; }
+
+        public Product()
+        {
+            Rect = new Rectangle();
+            Rect.Fill = new SolidColorBrush(Colors.Red);
+            Rect.Width = 40;
+            Rect.Height = 40;
+        }
     }
 }
