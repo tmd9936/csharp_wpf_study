@@ -52,15 +52,21 @@ namespace FactorySimulation.Service
             }
             State = TRANSFER_STATE.END;
 
-            if (AutoCycleThread != null)
-                AutoCycleThread.Join();
+            if (AutoCycleThread == null)
+            {
+                return;
+            }
+
+            AutoCycleThread.Join();
 
         }
 
         public void Initialize(List<ProgressBar> _progressBars, List<TextBlock> _boxes)
         {
             if ((int)State != ((int)TRANSFER_STATE.INIT))
+            {
                 return;
+            }
 
             threads = new List<WorkThread>();
             WorkThread curWorkThread;
@@ -162,7 +168,9 @@ namespace FactorySimulation.Service
         public bool WorkPuase()
         {
             if ((int)State != ((int)TRANSFER_STATE.WORKING))
+            {
                 return false;
+            }
 
             lock (State)
             {
@@ -185,22 +193,26 @@ namespace FactorySimulation.Service
             {
                 State = TRANSFER_STATE.STOP;
             }
+
             LogManager.Instance.SetLog("공정 정지");
         }
 
         public void ForceInput(string name, int index)
         {
             if ((int)State != ((int)TRANSFER_STATE.PAUSE))
+            {
                 return;
+            }
 
             if (index < 0 || index >= threads.Count)
+            {
                 return;
+            }
 
             if (threads[index] == null)
+            {
                 return;
-
-            //if (IsProductInFactoryLine()) // 1개 물품만 다시 넣기 가능?
-            //    return;
+            }
 
             AutoCycleThread.Join();
 
@@ -216,13 +228,19 @@ namespace FactorySimulation.Service
         public void ForceRemoval(int index)
         {
             if ((int)State != ((int)TRANSFER_STATE.PAUSE))
+            {
                 return;
+            }
 
             if (index < 0 || index >= threads.Count)
+            {
                 return;
+            }
 
             if (threads[index] == null)
+            {
                 return;
+            }
 
             if (threads[index].ForceRemoval())
             {
@@ -233,7 +251,9 @@ namespace FactorySimulation.Service
         public void InputObject(string name)
         {
             if ((int)State != ((int)TRANSFER_STATE.WORKING))
+            {
                 return;
+            }
 
             if (threads[0] == null)
                 return;

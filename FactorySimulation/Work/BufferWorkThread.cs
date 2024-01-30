@@ -31,7 +31,9 @@ namespace FactorySimulation.Work
             {
                 
                 if (progressBar.Maximum > progressBar.Value)
+                {
                     progressBar.Value += 1;
+                }
                 else
                 {
                     lock (IsComplete)

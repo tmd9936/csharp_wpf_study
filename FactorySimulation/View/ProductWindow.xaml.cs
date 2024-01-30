@@ -47,7 +47,7 @@ namespace FactorySimulation.View
 
         public void AddProductResultInfo(Product _product)
         {
-            _ = this.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            _ = Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
                 ProductViewModels.Products.Add(_product);
             }));

@@ -10,19 +10,9 @@ namespace FactorySimulation.Work
 {
     public class AlignWorkThread : WorkThread
     {
-        enum ALIGN_STATE
-        {
-            INIT,
-            SCAN,
-            CHECK,
-            MOVE_TILT,
-            COMPLETE
-        }
-
         public AlignWorkThread(ProgressBar _progressBar, TextBlock _box, Color _workOffColor, Color _workOnColor) 
             : base(_progressBar, _box, _workOffColor, _workOnColor)
         {
-            State = ALIGN_STATE.INIT;
         }
 
         protected override void Act()
@@ -31,7 +21,9 @@ namespace FactorySimulation.Work
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
                 if (progressBar.Maximum <= progressBar.Value)
+                {
                     return;
+                }
 
                 progressBar.Value += 1;
 
@@ -63,6 +55,5 @@ namespace FactorySimulation.Work
             }));
         }
 
-        private ALIGN_STATE State { get; set; }
     }
 }

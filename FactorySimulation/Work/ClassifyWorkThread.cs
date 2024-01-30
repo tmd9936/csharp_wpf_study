@@ -31,7 +31,9 @@ namespace FactorySimulation.Work
             _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
                 if (progressBar.Maximum > progressBar.Value)
+                {
                     progressBar.Value += 1;
+                }
                 else
                 {
                     lock (IsComplete)

@@ -35,10 +35,14 @@ namespace FactorySimulation.Utill
         public void Initialize(TextBlock textBox)
         {
             if (IsInit)
+            {
                 return;
+            }
 
             if (textBox == null)
+            {
                 return;
+            }
 
             logTextBox = textBox;
 
@@ -48,7 +52,9 @@ namespace FactorySimulation.Utill
         public void SetLog(string text)
         {
             if (!IsInit)
+            {
                 return;
+            }
 
             _ = logTextBox.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {

@@ -61,6 +61,14 @@ namespace FactorySimulation.Work
 
         public void WorkStart()
         {
+            if (product == null)
+            {
+                _ = progressBar.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                {
+                    progressBar.Value = 0;
+                }));
+            }
+
             IsPause = false;
         }
 
@@ -88,7 +96,9 @@ namespace FactorySimulation.Work
         public bool ForceRemoval()
         {
             if (product == null)
+            {
                 return false;
+            }
 
             product = null;
 
@@ -109,7 +119,9 @@ namespace FactorySimulation.Work
         public bool ForceInput(Product _product)
         {
             if (product != null || (bool)isWorkDoing || _product == null)
+            {
                 return false;
+            }
 
             product = _product;
 
@@ -125,12 +137,16 @@ namespace FactorySimulation.Work
         public bool TakeWork(Product _product)
         {
             if (product != null || (bool)isWorkDoing || _product == null)
+            {
                 return false;
+            }
 
             lock (isWorkDoing)
             {
                 if ((bool)isWorkDoing)
+                {
                     return false;
+                }
 
                 isWorkDoing = true;
             }
@@ -170,7 +186,6 @@ namespace FactorySimulation.Work
 
         protected abstract void Act();
 
-
         private void Job()
         {
             bool _isWorkDoing = false;
@@ -184,7 +199,9 @@ namespace FactorySimulation.Work
                 if (_isWorkDoing)
                 {
                     if (IsPause)
+                    {
                         continue;
+                    }
 
                     Act();
                 }

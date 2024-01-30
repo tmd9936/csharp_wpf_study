@@ -31,7 +31,7 @@ namespace FactorySimulation
 {
     public partial class MainWindow : Window
     {
-        private TransferService transfer = null;
+        private readonly TransferService transfer = null;
 
         private readonly SolidColorBrush[] solidColorBrushes;
 
@@ -95,13 +95,14 @@ namespace FactorySimulation
         private void Closed_Window(object sender, EventArgs e)
         {
             if (transfer != null)
+            {
                 transfer.Destroyed();
+            }
         }
 
         private void Btn_Start(object sender, RoutedEventArgs e)
         {
             WorkingMark.Fill = solidColorBrushes[(int)WORK_STATE.START];
-
             transfer.WorkStart();
         }
 
@@ -116,7 +117,6 @@ namespace FactorySimulation
         private void Btn_Stop(object sender, RoutedEventArgs e)
         {
             WorkingMark.Fill = solidColorBrushes[(int)WORK_STATE.STOP];
-
             transfer.WorkStop();
         }
 
@@ -138,7 +138,6 @@ namespace FactorySimulation
             int index = int.Parse(block.Tag.ToString());
             transfer.ForceInput(ProductNameTextBox.Text, index);
         }
-
 
         private void OpenProductData(object sender, RoutedEventArgs e)
         {
