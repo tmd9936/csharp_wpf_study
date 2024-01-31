@@ -120,6 +120,9 @@
     <Compile Include="View\ProductWindow.xaml.cs">
       <DependentUpon>ProductWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ProgressbarWindow.xaml.cs">
+      <DependentUpon>ProgressbarWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Work\AlignWorkThread.cs" />
     <Compile Include="Work\BufferWorkThread.cs" />
     <Compile Include="Work\ClassifyWorkThread.cs" />
@@ -140,6 +143,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\ProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProgressbarWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

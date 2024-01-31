@@ -46,25 +46,18 @@ namespace FactorySimulation
         {
             InitializeComponent();
 
+            ProductWindow.Instance.Width = ProductResultGrid.Width * 0.9;
+            ProductWindow.Instance.Height = ProductResultGrid.Height * 0.9;
+
+            ProductResultGrid.Children.Add(ProductWindow.Instance);
+            ProgressBarGrid.Children.Add(ProgressbarWindow.Instance);
+
             transfer = TransferService.Instance;
 
             solidColorBrushes = new SolidColorBrush[3];
             solidColorBrushes[(int)WORK_STATE.START] = new SolidColorBrush(Colors.Green);
             solidColorBrushes[(int)WORK_STATE.PAUSE] = new SolidColorBrush(Colors.Yellow);
             solidColorBrushes[(int)WORK_STATE.STOP] = new SolidColorBrush(Colors.Red);
-
-            List<ProgressBar> _progressBar = new List<ProgressBar>(9)
-            {
-                ProgressBar0,
-                ProgressBar1,
-                ProgressBar2,
-                ProgressBar3,
-                ProgressBar4,
-                ProgressBar5,
-                ProgressBar6,
-                ProgressBar7,
-                ProgressBar8
-            };
 
             List<TextBlock> _boxes = new List<TextBlock>(9)
             {
@@ -79,17 +72,8 @@ namespace FactorySimulation
                 Box8
             };
 
-            transfer.Initialize(_progressBar, _boxes);
+            transfer.Initialize(ProgressbarWindow.Instance.ProgressBars, _boxes);
             LogManager.Instance.Initialize(LogTextBox);
-
-            ProductWindow.Instance.Width = ProductResultGrid.Width * 0.9;
-            ProductWindow.Instance.Height = ProductResultGrid.Height * 0.9;
-
-            ProductResultGrid.Children.Add(ProductWindow.Instance);
-
-            //MainCanvas.Children.Add(rectangle);
-            //Canvas.SetTop(rectangle, 276);
-            //Canvas.SetLeft(rectangle, 27);
         }
 
         private void Closed_Window(object sender, EventArgs e)
