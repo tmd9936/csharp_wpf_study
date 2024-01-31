@@ -117,6 +117,9 @@
     <Compile Include="Service\TransferService.cs" />
     <Compile Include="Utill\LogManager.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
+    <Compile Include="View\CycleButtonWindow.xaml.cs">
+      <DependentUpon>CycleButtonWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ProductWindow.xaml.cs">
       <DependentUpon>ProductWindow.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\CycleButtonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

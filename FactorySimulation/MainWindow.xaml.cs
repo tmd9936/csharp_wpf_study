@@ -51,6 +51,7 @@ namespace FactorySimulation
 
             ProductResultGrid.Children.Add(ProductWindow.Instance);
             ProgressBarGrid.Children.Add(ProgressbarWindow.Instance);
+            CycleButtonGrid.Children.Add(CycleButtonWindow.Instance);
 
             transfer = TransferService.Instance;
 
@@ -136,11 +137,11 @@ namespace FactorySimulation
             Point point = Mouse.GetPosition(Application.Current.MainWindow);
         }
 
-        private void CycleEvent(object sender, RoutedEventArgs e)
-        {
-            Button btn = sender as Button;
-            int index = int.Parse(btn.Tag.ToString());
-            transfer.CycleProduct(index);
-        }
+        //private void CycleEvent(object sender, RoutedEventArgs e)
+        //{
+        //    Button btn = sender as Button;
+        //    int index = int.Parse(btn.Tag.ToString());
+        //    transfer.CycleProduct(index);
+        //}
     }
 }
